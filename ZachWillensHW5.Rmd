@@ -1,0 +1,63 @@
+---
+title: "ZWillensHW5"
+author: "Zach Willens, and Skyler Young"
+date: "2023-03-06"
+output: html_document
+---
+
+
+```{r}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+
+What is the overall number of chocolate bars rated?
+Answer: 1852
+```{r}
+num_reports = nrow(choco)
+num_reports
+```
+
+How does the number of ratings depend on the year? Draw a bar chart of the number of reports.
+Typically, as time passes, the quantity of ratings tends to rise, indicating a positive correlation between the year and the ratings.
+
+```{r}
+library(ggplot2)
+bar_chart = ggplot(data=choco, aes(x=Review.Date, y=num_reports)) +
+  geom_bar(stat="identity", width=.75, fill="blue")+theme_minimal()
+bar_chart
+```
+How are ratings distributed? Draw a histogram of ratings and describe it. Don’t forget to mention outliers, if there are any.
+
+The average and median ratings are both at 3, with a distribution that leans slightly towards the left but can also be considered symmetrical. However, there is one outlier at a rating of 5.
+```{r}
+mpg_hist = ggplot(choco, aes(x=Rating)) + 
+  geom_histogram(binwidth=1)
+
+mpg_hist
+```
+Do ratings depend on the cocoa percentage of a chocolate bar?
+There is a lack of correlation between the cocoa percentage and the rating of the chocolate bars.
+
+```{r}
+mpg_scatter = ggplot(choco, aes(x = Cocoa.Pct, y = Rating)) +
+    geom_point()
+mpg_scatter + geom_jitter()
+```
+
+
+How do ratings compare across different company locations? Focus on the three locations with the most ratings:
+
+```{r}
+var = dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+# boxplots
+ggplot(var, aes(x = Rating, y = Company.Location )) +
+  geom_boxplot()+
+  labs(
+    title = "Chocolate rating for 3 countries",
+    x = "Rating",
+    y = "Country"
+  ) +
+  theme_classic()
+```
+
