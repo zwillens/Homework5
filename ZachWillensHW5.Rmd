@@ -48,6 +48,8 @@ mpg_scatter + geom_jitter()
 
 How do ratings compare across different company locations? Focus on the three locations with the most ratings:
 
+The three countries with the highest number of ratings have a similar median rating of approximately 3.2. However, there are notable differences in the distribution of ratings among these countries. Canada and the US both exhibit a left skewness and have greater variability in their ratings compared to France, which has a symmetrical distribution and lower variability. Moreover, the US has two outliers, while France and Canada have one outlier and no outliers, respectively.
+
 ```{r}
 var = dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
 # boxplots
