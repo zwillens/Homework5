@@ -48,8 +48,6 @@ mpg_scatter + geom_jitter()
 
 How do ratings compare across different company locations? Focus on the three locations with the most ratings:
 
-The three countries with the highest number of ratings have a similar median rating of approximately 3.2. However, there are notable differences in the distribution of ratings among these countries. Canada and the US both exhibit a left skewness and have greater variability in their ratings compared to France, which has a symmetrical distribution and lower variability. Moreover, the US has two outliers, while France and Canada have one outlier and no outliers, respectively.
-
 ```{r}
 var = dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
 # boxplots
@@ -62,4 +60,29 @@ ggplot(var, aes(x = Rating, y = Company.Location )) +
   ) +
   theme_classic()
 ```
+
+
+# Zach's Questions:
+# What is the average rating for chocolate bars in the United States
+# The answer is around 3
+
+{r}
+library(ggplot2)
+Q1 = dplyr::filter(choco, Company.Location %in% c("U.S.A."))
+
+USA_hist = ggplot(Q1, aes(x=Rating)) + 
+  geom_histogram(binwidth=1)
+
+USA_hist
+# Skyler's Question:
+# What is the average rating for chocolate bars in France
+# The answer is around 3
+
+{r}
+var = dplyr::filter(choco, Company.Location %in% c("France"))
+# boxplots
+mpg_hist = ggplot(var, aes(x=Rating)) + 
+  geom_histogram(binwidth=1)
+
+mpg_hist
 
